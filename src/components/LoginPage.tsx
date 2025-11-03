@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { ImageWithFallback } from "./mukt/ImageWithFallback";
 import { ArrowLeft } from "lucide-react";
 import { authAPI } from "../utils/api";
 import { toast } from "sonner@2.0.3";
@@ -13,7 +13,11 @@ interface LoginPageProps {
   onBackToLanding?: () => void;
 }
 
-export function LoginPage({ onSwitchToRegister, onLogin, onBackToLanding }: LoginPageProps) {
+export function LoginPage({
+  onSwitchToRegister,
+  onLogin,
+  onBackToLanding,
+}: LoginPageProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,10 +34,15 @@ export function LoginPage({ onSwitchToRegister, onLogin, onBackToLanding }: Logi
       }
     } catch (error) {
       console.error("Login error:", error);
-      const errorMessage = error instanceof Error ? error.message : "Failed to login";
-      
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to login";
+
       // Provide helpful messages with actions
-      if (errorMessage.includes("Invalid") || errorMessage.includes("credentials") || errorMessage.includes("password")) {
+      if (
+        errorMessage.includes("Invalid") ||
+        errorMessage.includes("credentials") ||
+        errorMessage.includes("password")
+      ) {
         toast.error("Invalid email or password. Please check and try again.", {
           action: {
             label: "Sign Up",
@@ -41,7 +50,10 @@ export function LoginPage({ onSwitchToRegister, onLogin, onBackToLanding }: Logi
           },
           duration: 5000,
         });
-      } else if (errorMessage.includes("not found") || errorMessage.includes("User")) {
+      } else if (
+        errorMessage.includes("not found") ||
+        errorMessage.includes("User")
+      ) {
         toast.error("Account not found. Please sign up first.", {
           action: {
             label: "Create Account",
@@ -61,11 +73,17 @@ export function LoginPage({ onSwitchToRegister, onLogin, onBackToLanding }: Logi
     <div className="min-h-screen w-full relative overflow-hidden flex items-center justify-center p-4">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A] via-[#6366f1] to-[#9333EA]" />
-      
+
       {/* Floating Shapes */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-      <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
+      <div
+        className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "1s" }}
+      />
+      <div
+        className="absolute top-1/2 left-1/4 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "2s" }}
+      />
 
       {/* Main Content */}
       <div className="relative z-10 w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
@@ -83,13 +101,19 @@ export function LoginPage({ onSwitchToRegister, onLogin, onBackToLanding }: Logi
           )}
           <div className="backdrop-blur-2xl bg-white/10 border border-white/20 rounded-[20px] p-8 shadow-2xl">
             <div className="mb-8">
-              <h1 className="text-white mb-2">Welcome Back to Campus Connect</h1>
-              <p className="text-white/70">Sign in to access your student portal</p>
+              <h1 className="text-white mb-2">
+                Welcome Back to Campus Connect
+              </h1>
+              <p className="text-white/70">
+                Sign in to access your student portal
+              </p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-white/90">Email</Label>
+                <Label htmlFor="email" className="text-white/90">
+                  Email
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -102,7 +126,9 @@ export function LoginPage({ onSwitchToRegister, onLogin, onBackToLanding }: Logi
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white/90">Password</Label>
+                <Label htmlFor="password" className="text-white/90">
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -144,8 +170,12 @@ export function LoginPage({ onSwitchToRegister, onLogin, onBackToLanding }: Logi
               className="w-full h-auto rounded-xl"
             />
             <div className="mt-6 text-center">
-              <h3 className="text-white mb-2">Connect. Collaborate. Succeed.</h3>
-              <p className="text-white/70">Join thousands of students building their campus community</p>
+              <h3 className="text-white mb-2">
+                Connect. Collaborate. Succeed.
+              </h3>
+              <p className="text-white/70">
+                Join thousands of students building their campus community
+              </p>
             </div>
           </div>
         </div>
