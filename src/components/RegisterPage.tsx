@@ -2,7 +2,13 @@ import { useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { ArrowLeft } from "lucide-react";
 import { authAPI } from "../utils/api";
 import { toast } from "sonner@2.0.3";
@@ -13,7 +19,11 @@ interface RegisterPageProps {
   onBackToLanding?: () => void;
 }
 
-export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: RegisterPageProps) {
+export function RegisterPage({
+  onSwitchToLogin,
+  onRegister,
+  onBackToLanding,
+}: RegisterPageProps) {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -37,10 +47,14 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
       }, 1000);
     } catch (error) {
       console.error("Registration error:", error);
-      const errorMessage = error instanceof Error ? error.message : "Failed to create account";
-      
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to create account";
+
       // Handle specific errors with helpful messages
-      if (errorMessage.includes("already been registered") || errorMessage.includes("already exists")) {
+      if (
+        errorMessage.includes("already been registered") ||
+        errorMessage.includes("already exists")
+      ) {
         toast.error("This email is already registered. Please login instead.", {
           action: {
             label: "Go to Login",
@@ -68,12 +82,21 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
     <div className="min-h-screen w-full relative overflow-hidden flex items-center justify-center p-4 py-12">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#1E3A8A] via-[#6366f1] to-[#9333EA]" />
-      
+
       {/* Floating Shapes */}
       <div className="absolute top-10 right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-32 left-20 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1.5s" }} />
-      <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "3s" }} />
-      <div className="absolute bottom-10 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2.5s" }} />
+      <div
+        className="absolute bottom-32 left-20 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "1.5s" }}
+      />
+      <div
+        className="absolute top-1/3 right-1/3 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "3s" }}
+      />
+      <div
+        className="absolute bottom-10 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "2.5s" }}
+      />
 
       {/* Main Content */}
       <div className="relative z-10 w-full max-w-2xl">
@@ -96,11 +119,13 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name */}
             <div className="space-y-2">
-              <Label htmlFor="fullName" className="text-white/90">Full Name</Label>
+              <Label htmlFor="fullName" className="text-white/90">
+                Full Name
+              </Label>
               <Input
                 id="fullName"
                 type="text"
-                placeholder="John Doe"
+                placeholder="Enter your full name"
                 value={formData.fullName}
                 onChange={(e) => handleInputChange("fullName", e.target.value)}
                 required
@@ -110,11 +135,13 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
 
             {/* Email */}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white/90">Email</Label>
+              <Label htmlFor="email" className="text-white/90">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="your.email@university.edu"
+                placeholder=" your.email@university.edu"
                 value={formData.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
                 required
@@ -124,7 +151,9 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
 
             {/* Password */}
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-white/90">Password</Label>
+              <Label htmlFor="password" className="text-white/90">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
@@ -138,33 +167,122 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
 
             {/* University */}
             <div className="space-y-2">
-              <Label htmlFor="university" className="text-white/90">University</Label>
+              <Label htmlFor="university" className="text-white/90">
+                University
+              </Label>
               <Select
                 value={formData.university}
-                onValueChange={(value) => handleInputChange("university", value)}
+                onValueChange={(value) =>
+                  handleInputChange("university", value)
+                }
                 required
               >
                 <SelectTrigger className="bg-white/20 border-white/30 text-white focus:bg-white/30 focus:border-white/50 transition-all">
                   <SelectValue placeholder="Select university" />
                 </SelectTrigger>
                 <SelectContent className="bg-indigo-900 border-white/20 max-h-[300px]">
-                  <SelectItem value="stanford" className="text-white hover:bg-white/10">Stanford University</SelectItem>
-                  <SelectItem value="mit" className="text-white hover:bg-white/10">MIT</SelectItem>
-                  <SelectItem value="harvard" className="text-white hover:bg-white/10">Harvard University</SelectItem>
-                  <SelectItem value="berkeley" className="text-white hover:bg-white/10">UC Berkeley</SelectItem>
-                  <SelectItem value="oxford" className="text-white hover:bg-white/10">Oxford University</SelectItem>
-                  <SelectItem value="cambridge" className="text-white hover:bg-white/10">Cambridge University</SelectItem>
-                  <SelectItem value="caltech" className="text-white hover:bg-white/10">Caltech</SelectItem>
-                  <SelectItem value="princeton" className="text-white hover:bg-white/10">Princeton University</SelectItem>
-                  <SelectItem value="yale" className="text-white hover:bg-white/10">Yale University</SelectItem>
-                  <SelectItem value="columbia" className="text-white hover:bg-white/10">Columbia University</SelectItem>
-                  <SelectItem value="uchicago" className="text-white hover:bg-white/10">University of Chicago</SelectItem>
-                  <SelectItem value="upenn" className="text-white hover:bg-white/10">University of Pennsylvania</SelectItem>
-                  <SelectItem value="cornell" className="text-white hover:bg-white/10">Cornell University</SelectItem>
-                  <SelectItem value="ucla" className="text-white hover:bg-white/10">UCLA</SelectItem>
-                  <SelectItem value="duke" className="text-white hover:bg-white/10">Duke University</SelectItem>
-                  <SelectItem value="northwestern" className="text-white hover:bg-white/10">Northwestern University</SelectItem>
-                  <SelectItem value="other" className="text-white hover:bg-white/10">Other</SelectItem>
+                  <SelectItem
+                    value="haramaya"
+                    className="text-white hover:bg-white/10"
+                  >
+                    Haramaya University
+                  </SelectItem>
+                  <SelectItem
+                    value="addis ababa"
+                    className="text-white hover:bg-white/10"
+                  >
+                    Addis Ababa University
+                  </SelectItem>
+                  <SelectItem
+                    value="dire dawa"
+                    className="text-white hover:bg-white/10"
+                  >
+                    dire dawa University
+                  </SelectItem>
+                  <SelectItem
+                    value="asosa"
+                    className="text-white hover:bg-white/10"
+                  >
+                    asosa University
+                  </SelectItem>
+                  <SelectItem
+                    value="borana"
+                    className="text-white hover:bg-white/10"
+                  >
+                    borana University
+                  </SelectItem>
+                  <SelectItem
+                    value="mattu"
+                    className="text-white hover:bg-white/10"
+                  >
+                    mattu University
+                  </SelectItem>
+                  <SelectItem
+                    value="makele"
+                    className="text-white hover:bg-white/10"
+                  >
+                    makele University
+                  </SelectItem>
+                  <SelectItem
+                    value="wachamo"
+                    className="text-white hover:bg-white/10"
+                  >
+                    wachamo University
+                  </SelectItem>
+                  <SelectItem
+                    value="mada walabu"
+                    className="text-white hover:bg-white/10"
+                  >
+                    mada walabu university
+                  </SelectItem>
+                  <SelectItem
+                    value="koteb"
+                    className="text-white hover:bg-white/10"
+                  >
+                    koteb University
+                  </SelectItem>
+                  <SelectItem
+                    value="adama science and technology"
+                    className="text-white hover:bg-white/10"
+                  >
+                    adama science and technology University
+                  </SelectItem>
+                  <SelectItem
+                    value="bahdar"
+                    className="text-white hover:bg-white/10"
+                  >
+                    bahdar university
+                  </SelectItem>
+                  <SelectItem
+                    value="gonder"
+                    className="text-white hover:bg-white/10"
+                  >
+                    gonder university
+                  </SelectItem>
+                  <SelectItem
+                    value="arsi"
+                    className="text-white hover:bg-white/10"
+                  >
+                    arsi university
+                  </SelectItem>
+                  <SelectItem
+                    value="jimma"
+                    className="text-white hover:bg-white/10"
+                  >
+                    jimma university
+                  </SelectItem>
+                  <SelectItem
+                    value=" addis ababa technlogy"
+                    className="text-white hover:bg-white/10"
+                  >
+                    Addis Ababa technlogy university
+                  </SelectItem>
+                  <SelectItem
+                    value="other"
+                    className="text-white hover:bg-white/10"
+                  >
+                    Other
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -173,30 +291,101 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
             <div className="grid md:grid-cols-2 gap-4">
               {/* Department */}
               <div className="space-y-2">
-                <Label htmlFor="department" className="text-white/90">Department</Label>
+                <Label htmlFor="department" className="text-white/90">
+                  Department
+                </Label>
                 <Select
                   value={formData.department}
-                  onValueChange={(value) => handleInputChange("department", value)}
+                  onValueChange={(value) =>
+                    handleInputChange("department", value)
+                  }
                 >
                   <SelectTrigger className="bg-white/20 border-white/30 text-white focus:bg-white/30 focus:border-white/50 transition-all">
                     <SelectValue placeholder="Select department" />
                   </SelectTrigger>
                   <SelectContent className="bg-indigo-900 border-white/20 text-white">
-                    <SelectItem value="computer-science" className="text-white hover:bg-white/10">Computer Science</SelectItem>
-                    <SelectItem value="engineering" className="text-white hover:bg-white/10">Engineering</SelectItem>
-                    <SelectItem value="business" className="text-white hover:bg-white/10">Business</SelectItem>
-                    <SelectItem value="arts" className="text-white hover:bg-white/10">Arts & Humanities</SelectItem>
-                    <SelectItem value="sciences" className="text-white hover:bg-white/10">Natural Sciences</SelectItem>
-                    <SelectItem value="medicine" className="text-white hover:bg-white/10">Medicine</SelectItem>
-                    <SelectItem value="law" className="text-white hover:bg-white/10">Law</SelectItem>
-                    <SelectItem value="other" className="text-white hover:bg-white/10">Other</SelectItem>
+                    <SelectItem
+                      value="computer-science"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Computer Science
+                    </SelectItem>
+                    <SelectItem
+                      value="engineering"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Engineering
+                    </SelectItem>
+                    <SelectItem
+                      value="information-technology"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Information Technology
+                    </SelectItem>
+                    
+                    <SelectItem
+                      value="business"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Business
+                    </SelectItem>
+                    <SelectItem
+                      value="arts"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Arts & Humanities
+                    </SelectItem>
+                    <SelectItem
+                      value="sciences"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Natural Sciences
+                    </SelectItem>
+                    <SelectItem
+                      value="medicine"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Medicine
+                    </SelectItem>
+                   <SelectItem
+                      value="business"
+                      className="text-white hover:bg-white/10"
+                    >
+                      business
+                    </SelectItem>
+                    <SelectItem
+                      value="accounting"
+                      className="text-white hover:bg-white/10"
+                    > accounting
+                      
+                    </SelectItem>
+                    <SelectItem
+                      value="business management"
+                      className="text-white hover:bg-white/10"
+                    >
+                      business management
+                    </SelectItem>
+                    <SelectItem
+                      value="law"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Law
+                    </SelectItem>
+                    <SelectItem
+                      value="other"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Other
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               {/* Year */}
               <div className="space-y-2">
-                <Label htmlFor="year" className="text-white/90">Year</Label>
+                <Label htmlFor="year" className="text-white/90">
+                  Year
+                </Label>
                 <Select
                   value={formData.year}
                   onValueChange={(value) => handleInputChange("year", value)}
@@ -205,12 +394,42 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
                     <SelectValue placeholder="Select year" />
                   </SelectTrigger>
                   <SelectContent className="bg-indigo-900 border-white/20 text-white">
-                    <SelectItem value="1" className="text-white hover:bg-white/10">1st Year</SelectItem>
-                    <SelectItem value="2" className="text-white hover:bg-white/10">2nd Year</SelectItem>
-                    <SelectItem value="3" className="text-white hover:bg-white/10">3rd Year</SelectItem>
-                    <SelectItem value="4" className="text-white hover:bg-white/10">4th Year</SelectItem>
-                    <SelectItem value="graduate" className="text-white hover:bg-white/10">Graduate</SelectItem>
-                    <SelectItem value="phd" className="text-white hover:bg-white/10">PhD</SelectItem>
+                    <SelectItem
+                      value="1"
+                      className="text-white hover:bg-white/10"
+                    >
+                      1st Year
+                    </SelectItem>
+                    <SelectItem
+                      value="2"
+                      className="text-white hover:bg-white/10"
+                    >
+                      2nd Year
+                    </SelectItem>
+                    <SelectItem
+                      value="3"
+                      className="text-white hover:bg-white/10"
+                    >
+                      3rd Year
+                    </SelectItem>
+                    <SelectItem
+                      value="4"
+                      className="text-white hover:bg-white/10"
+                    >
+                      4th Year
+                    </SelectItem>
+                    <SelectItem
+                      value="graduate"
+                      className="text-white hover:bg-white/10"
+                    >
+                      Graduate
+                    </SelectItem>
+                    <SelectItem
+                      value="phd"
+                      className="text-white hover:bg-white/10"
+                    >
+                      PhD
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -218,7 +437,9 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
 
             {/* Skills */}
             <div className="space-y-2">
-              <Label htmlFor="skills" className="text-white/90">Skills</Label>
+              <Label htmlFor="skills" className="text-white/90">
+                Skills
+              </Label>
               <Input
                 id="skills"
                 type="text"
@@ -227,7 +448,9 @@ export function RegisterPage({ onSwitchToLogin, onRegister, onBackToLanding }: R
                 onChange={(e) => handleInputChange("skills", e.target.value)}
                 className="bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:bg-white/30 focus:border-white/50 transition-all"
               />
-              <p className="text-white/50 mt-1">Enter your skills separated by commas</p>
+              <p className="text-white/50 mt-1">
+                Enter your skills separated by commas
+              </p>
             </div>
 
             <Button

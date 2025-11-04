@@ -199,7 +199,7 @@ export function Profile() {
                         university: e.target.value,
                       })
                     }
-                    placeholder="e.g., Stanford, MIT..."
+                    placeholder="e.g., Haramaya University..."
                     className="bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:bg-white/30 focus:border-white/50 transition-all"
                   />
                 </div>
@@ -246,7 +246,7 @@ export function Profile() {
                     onChange={(e) =>
                       setEditedData({ ...editedData, skills: e.target.value })
                     }
-                    placeholder="JavaScript, Python, React..."
+                    placeholder="e.g., JavaScript, Python, React..."
                     className="bg-white/20 border-white/30 text-white placeholder:text-white/50 focus:bg-white/30 focus:border-white/50 transition-all"
                   />
                 </div>
