@@ -288,6 +288,16 @@ export const lostFoundAPI = {
       true
     );
   },
+
+  delete: async (itemId: string) => {
+    return apiCall(
+      `/lost-found/${itemId}`,
+      {
+        method: "DELETE",
+      },
+      true
+    );
+  },
 };
 
 // ===== RIDE SHARING API =====
