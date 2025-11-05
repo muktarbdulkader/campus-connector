@@ -53,7 +53,7 @@ export function Sidebar({
 
   return (
     <>
-      {/* 🌐 Mobile Menu Button */}
+      {/* 📱 Mobile Menu Toggle */}
       <button
         onClick={() => setIsMobileOpen(!isMobileOpen)}
         className="lg:hidden fixed top-4 left-4 z-50 backdrop-blur-xl bg-white/10 border border-white/20 rounded-xl p-3 shadow-xl text-white hover:bg-white/20 transition-all"
@@ -61,7 +61,7 @@ export function Sidebar({
         {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
 
-      {/* 🖤 Overlay */}
+      {/* 🔲 Overlay */}
       {isMobileOpen && (
         <div
           className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
@@ -69,14 +69,14 @@ export function Sidebar({
         />
       )}
 
-      {/* 🎨 Sidebar */}
+      {/* 🧊 Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-full w-64 backdrop-blur-2xl bg-gradient-to-b from-indigo-900/60 via-purple-900/40 to-black/30 border-r border-white/20 z-40 shadow-2xl transition-transform duration-300 ${
+        className={`fixed left-0 top-0 h-full w-64 backdrop-blur-2xl bg-gradient-to-b from-indigo-900/70 via-purple-900/40 to-black/30 border-r border-white/20 z-40 shadow-2xl transition-transform duration-300 ${
           isMobileOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
-          {/* 🏫 Logo Section */}
+          {/* 🏫 Logo */}
           <div className="p-6 border-b border-white/10">
             <h2 className="text-white text-xl font-semibold mb-1 tracking-wide">
               Campus Connect
@@ -85,7 +85,20 @@ export function Sidebar({
           </div>
 
           {/* 🧭 Scrollable Navigation */}
-          <nav className="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+          <nav
+            className="flex-1 overflow-y-auto p-4 space-y-2"
+            style={{
+              scrollbarWidth: "none", // Firefox
+              msOverflowStyle: "none", // IE + Edge
+            }}
+          >
+            <style>{`
+              /* Hide scrollbar for Chrome, Safari, Edge */
+              nav::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
+
             {menuItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentPage === item.id;
@@ -95,7 +108,7 @@ export function Sidebar({
                   onClick={() => handleNavigate(item.id)}
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                     isActive
-                      ? "bg-white/20 text-white shadow-lg"
+                      ? "bg-white/20 text-white shadow-lg backdrop-blur-md"
                       : "text-white/70 hover:bg-white/10 hover:text-white"
                   }`}
                 >
